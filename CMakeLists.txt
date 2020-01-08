@@ -1,15 +1,14 @@
-cmake_minimum_required(VERSION 2.6)
-project(monitor)
+cmake_minimum_required(VERSION 3.11.3)
 
-find_package(Curses REQUIRED)
-include_directories(${CURSES_INCLUDE_DIRS})
+set(CMAKE_CXX_STANDARD 17)
 
-include_directories(include)
-file(GLOB SOURCES "src/*.cpp")
+project(Membot)
 
-add_executable(monitor ${SOURCES})
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+include(${wxWidgets_USE_FILE})
 
-set_property(TARGET monitor PROPERTY CXX_STANDARD 17)
-target_link_libraries(monitor ${CURSES_LIBRARIES})
-# TODO: Run -Werror in CI.
-target_compile_options(monitor PRIVATE -Wall -Wextra)
+file(GLOB project_SRCS src/*.cpp)
+
+add_executable(membot ${project_SRCS})
+target_link_libraries(membot ${wxWidgets_LIBRARIES})
+target_include_directories(membot PRIVATE ${wxWidgets_INCLUDE_DIRS})

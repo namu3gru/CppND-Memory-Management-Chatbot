@@ -1,21 +1,17 @@
 .PHONY: all
-all: format test build
-
-.PHONY: format
-format:
-	clang-format src/* include/* -i
+all: build
 
 .PHONY: build
 build:
-	mkdir -p build
-	cd build && \
+	mkdir -p $@
+	cd $@ && \
 	cmake .. && \
 	make
 
 .PHONY: debug
 debug:
-	mkdir -p build
-	cd build && \
+	mkdir -p $@
+	cd $@ && \
 	cmake -DCMAKE_BUILD_TYPE=debug .. && \
 	make
 
